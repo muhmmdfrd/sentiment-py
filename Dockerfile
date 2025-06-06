@@ -8,8 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/ ./src/
 
-RUN python -m grpc_tools.protoc -I=src --python_out=src --grpc_python_out=src src/sentiment_analysis.proto
+EXPOSE 8000
 
-EXPOSE 50051
-
-CMD ["python", "./src/server.py"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
